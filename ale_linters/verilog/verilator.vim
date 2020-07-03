@@ -34,7 +34,7 @@ function! ale_linters#verilog#verilator#Handle(buffer, lines) abort
     "
     " to stay compatible with old versions of the tool, the column number is
     " optional in the researched pattern
-    let l:pattern = '^%\(Warning\|Error\)[^:]*:\([^:]\+\):\(\d\+\):\(\d\+\)\?:\? \(.\+\)$'
+    let l:pattern = (system('uname -a') =~# 'Msys') ? '^%\(Warning\|Error\)[^:]*:\([^:]\+:[^:]\+\):\(\d\+\):\(\d\+\)\?:\? \(.\+\)$' : '^%\(Warning\|Error\)[^:]*:\([^:]\+\):\(\d\+\):\(\d\+\)\?:\? \(.\+\)$'
     let l:output = []
 
     for l:match in ale#util#GetMatches(a:lines, l:pattern)
